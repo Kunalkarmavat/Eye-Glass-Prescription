@@ -1,13 +1,15 @@
-import 'package:eye_glass/Views/Final_Summary.dart';
-import 'package:eye_glass/Views/Lens_Info.dart';
-import 'package:eye_glass/Views/Personal_Info.dart';
-import 'package:eye_glass/Views/home_%20screens.dart';
-import 'package:eye_glass/Provider/lens_provider.dart';
-import 'package:eye_glass/Provider/prescription_Provider.dart';
+import 'package:eye_glass/screens/final_summary_screen.dart';
+import 'package:eye_glass/screens/lens_info_screen.dart';
+import 'package:eye_glass/screens/personal_info_screen.dart';
+import 'package:eye_glass/screens/home_screen.dart';
+import 'package:eye_glass/providers/lens_provider.dart';
+import 'package:eye_glass/providers/prescription_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  await dotenv.load();
   runApp(
     MultiProvider(
       providers: [
@@ -36,10 +38,10 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/home',
       routes: {
-        '/home': (context) =>  Home_Screen(),
-        '/form': (context) => const Personal_Info(),
-        '/form2': (context) => const LensInfo(),
-        '/summary': (context) => const FinalSummary(),
+        '/home': (context) => const HomeScreen(),
+        '/form': (context) => const PersonalInfoScreen(),
+        '/form2': (context) => const LensInfoScreen(),
+        '/summary': (context) => const FinalSummaryScreen(),
       },
     );
   }

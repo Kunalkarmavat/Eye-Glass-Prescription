@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../viewmodels/prescription_Provider.dart';
+
+import 'package:eye_glass/providers/prescription_provider.dart';
 
 class FinalSummary extends StatelessWidget {
   const FinalSummary({super.key});
@@ -21,11 +22,16 @@ class FinalSummary extends StatelessWidget {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSummaryRow("Prescription Name", provider.prescriptionNameController.text),
-                _buildSummaryRow("Doctor Name", provider.doctorNameController.text),
-                _buildSummaryRow("Prescription Date", provider.prescriptionDateController.text),
-                _buildSummaryRow("Expiry Date", provider.expiryDateController.text),
-                _buildSummaryRow("Revisit Date", provider.revisitDateController.text),
+                _buildSummaryRow("Prescription Name",
+                    provider.prescriptionNameController.text),
+                _buildSummaryRow(
+                    "Doctor Name", provider.doctorNameController.text),
+                _buildSummaryRow("Prescription Date",
+                    provider.prescriptionDateController.text),
+                _buildSummaryRow(
+                    "Expiry Date", provider.expiryDateController.text),
+                _buildSummaryRow(
+                    "Revisit Date", provider.revisitDateController.text),
                 const SizedBox(height: 20),
               ],
             );

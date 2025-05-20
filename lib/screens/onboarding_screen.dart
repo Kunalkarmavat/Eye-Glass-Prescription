@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 // import 'package:hexcolor/hexcolor.dart';
 
-class Onboarding extends StatefulWidget {
-  // const Onboarding({Key? key}) : super(key: key);
+class OnboardingScreen extends StatefulWidget {
+  const OnboardingScreen({super.key});
+
+  // const OnboardingScreen({Key? key}) : super(key: key);
 
   @override
-  _OnboardingState createState() => _OnboardingState();
+  State<OnboardingScreen> createState() => _OnboardingScreenState();
 }
 
-class _OnboardingState extends State<Onboarding> {
+class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
   int _currentIndex = 0; // To track the current page index
 
@@ -24,14 +26,15 @@ class _OnboardingState extends State<Onboarding> {
           });
         },
         children: [
-          buildPage('assets/images/woman.png', 'SMART \nPRESCRIPTION \nSIMPLIFIED'),
-          buildPage('assets/images/man.png', 'ACCURATE \nVISION TESTING \nANYTIME'),
+          buildPage(
+              'assets/images/woman.png', 'SMART \nPRESCRIPTION \nSIMPLIFIED'),
+          buildPage(
+              'assets/images/man.png', 'ACCURATE \nVISION TESTING \nANYTIME'),
           buildPage('assets/images/woman2.png', 'EASY \nOPTICAL \nDIAGNOSTICS'),
         ],
       ),
       bottomSheet: Container(
         padding: const EdgeInsets.symmetric(horizontal: 30),
-
         height: 160,
         color: Colors.white,
         child: Column(
@@ -66,49 +69,51 @@ class _OnboardingState extends State<Onboarding> {
             ),
             const SizedBox(height: 34),
             Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-         TextButton(
-        style: TextButton.styleFrom(
-          backgroundColor: Colors.white, // Set background color to white
-          padding: const EdgeInsets.symmetric(horizontal: 44, vertical: 12),
-          side: BorderSide(color: Color.fromARGB(164, 0, 0, 0), width: 2), // Border color and width
-        ),
-        onPressed: () {
-          _pageController.jumpToPage(2); // Skip to last page
-        },
-        child: const Text(
-          'Skip',
-          style: TextStyle(color: Colors.black), // Text color black
-        ),
-      ),
-      
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-      backgroundColor: Colors.black, // Button background color
-      padding: const EdgeInsets.symmetric(horizontal: 46, vertical: 12),
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor:
+                        Colors.white, // Set background color to white
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 44, vertical: 12),
+                    side: const BorderSide(
+                        color: Color.fromARGB(164, 0, 0, 0),
+                        width: 2), // Border color and width
+                  ),
+                  onPressed: () {
+                    _pageController.jumpToPage(2); // Skip to last page
+                  },
+                  child: const Text(
+                    'Skip',
+                    style: TextStyle(color: Colors.black), // Text color black
+                  ),
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.black, // Button background color
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 46, vertical: 12),
+                  ),
+                  onPressed: () {
+                    if (_currentIndex < 2) {
+                      print(_currentIndex);
+                      _pageController.nextPage(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeInOut,
+                      );
+                    } else {
+                      Navigator.pushNamed(context, '/home');
+                    }
+                  },
+                  child: Text(
+                    _currentIndex == 2 ? 'Get Started' : 'Next',
+                    style: const TextStyle(
+                        color: Colors.white), // Button text color
+                  ),
+                ),
+              ],
             ),
-            onPressed: () {
-      if (_currentIndex < 2) {
-        print(_currentIndex);
-        _pageController.nextPage(
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeInOut,
-        );
-       
-      } else {
-         Navigator.pushNamed(context, '/home');
-      }
-            },
-            child: Text(
-      _currentIndex == 2 ? 'Get Started' : 'Next',
-      style: const TextStyle(color: Colors.white), // Button text color
-      
-            ),
-          ),
-        ],
-      ),
-      
           ],
         ),
       ),

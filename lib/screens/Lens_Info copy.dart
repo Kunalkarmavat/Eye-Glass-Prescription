@@ -1,4 +1,4 @@
-import 'package:eye_glass/Provider/lens_provider.dart';
+import 'package:eye_glass/providers/lens_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -65,8 +65,7 @@ class _LensInfoState extends State<LensInfo> {
               keyboardType: TextInputType.multiline,
               cursorColor: Colors.black,
               textAlignVertical: TextAlignVertical.top,
-              onChanged: (value) {
-              },
+              onChanged: (value) {},
               decoration: InputDecoration(
                 hintText: 'Add your note',
                 hintStyle: const TextStyle(
@@ -105,7 +104,6 @@ class _LensInfoState extends State<LensInfo> {
                 'expiryDate': '2025-04-08',
                 'revisitDate': '2024-10-08',
                 'lensType': lensInfoProvider.selectedLensType ?? 'Not selected',
-  
               },
             );
           },
@@ -151,7 +149,8 @@ class _LensInfoState extends State<LensInfo> {
               value: "Yes",
               onChanged: (value) {
                 // provider.setSelectedPrisms(value as String?);
-              }, groupValue: '',
+              },
+              groupValue: '',
             ),
             const Text("Yes", style: _fieldLabelStyle),
             const SizedBox(width: 12),
@@ -159,7 +158,8 @@ class _LensInfoState extends State<LensInfo> {
               value: "No",
               onChanged: (value) {
                 // provider.setSelectedPrisms(value as String?);
-              }, groupValue: '',
+              },
+              groupValue: '',
             ),
             const Text("No", style: _fieldLabelStyle),
           ],

@@ -1,21 +1,27 @@
-import 'package:eye_glass/Provider/prescription_Provider.dart';
+import 'package:eye_glass/providers/prescription_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class Personal_Info extends StatefulWidget {
-  const Personal_Info({super.key});
+class PersonalInfo extends StatefulWidget {
+  const PersonalInfo({super.key});
 
   @override
-  State<Personal_Info> createState() => _Personal_InfoState();
+  State<PersonalInfo> createState() => _PersonalInfoState();
 }
 
-class _Personal_InfoState extends State<Personal_Info> {
+class _PersonalInfoState extends State<PersonalInfo> {
   List<String> lensTypes = [
-    'Distance', 'Reading', 'Computer', 'Trifocal', 'Bifocal', 'Progressive',
+    'Distance',
+    'Reading',
+    'Computer',
+    'Trifocal',
+    'Bifocal',
+    'Progressive',
   ];
   String? selectedLensType;
 
-  Future<void> _selectDate(BuildContext context, TextEditingController controller) async {
+  Future<void> _selectDate(
+      BuildContext context, TextEditingController controller) async {
     DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -23,7 +29,8 @@ class _Personal_InfoState extends State<Personal_Info> {
       lastDate: DateTime(2100),
     );
     if (pickedDate != null) {
-      controller.text = "${pickedDate.day}/${pickedDate.month}/${pickedDate.year}";
+      controller.text =
+          "${pickedDate.day}/${pickedDate.month}/${pickedDate.year}";
     }
   }
 
@@ -48,7 +55,8 @@ class _Personal_InfoState extends State<Personal_Info> {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               const Text("Prescription Name"),
               const SizedBox(height: 14),
               TextField(
@@ -69,9 +77,11 @@ class _Personal_InfoState extends State<Personal_Info> {
           _dateBox("Revisit Date", provider.revisitDateController),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               const SizedBox(height: 24),
-              const Text("Lens Type", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16)),
+              const Text("Lens Type",
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16)),
               const SizedBox(height: 14),
               Wrap(
                 spacing: 10,
@@ -85,15 +95,20 @@ class _Personal_InfoState extends State<Personal_Info> {
                       });
                     },
                     child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 18),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 18),
                       decoration: BoxDecoration(
-                        color: isSelected ? const Color.fromRGBO(72, 76, 224, 1) : Colors.white,
+                        color: isSelected
+                            ? const Color.fromRGBO(72, 76, 224, 1)
+                            : Colors.white,
                         border: Border.all(color: Colors.black),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Text(
                         type,
-                        style: TextStyle(color: isSelected ? Colors.white : Colors.black, fontWeight: FontWeight.w500),
+                        style: TextStyle(
+                            color: isSelected ? Colors.white : Colors.black,
+                            fontWeight: FontWeight.w500),
                       ),
                     ),
                   );
@@ -120,7 +135,8 @@ class _Personal_InfoState extends State<Personal_Info> {
             child: Center(
               child: Text(
                 'Save & Next',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500, color: myColor),
+                style: TextStyle(
+                    fontSize: 18, fontWeight: FontWeight.w500, color: myColor),
               ),
             ),
           ),
@@ -151,7 +167,8 @@ class _Personal_InfoState extends State<Personal_Info> {
               borderSide: const BorderSide(color: Colors.black, width: 2),
               borderRadius: BorderRadius.circular(12),
             ),
-            contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
             filled: true,
             fillColor: Colors.white,
           ),
