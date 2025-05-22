@@ -32,7 +32,8 @@ class _LensInfoScreenState extends State<LensInfoScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final prescriptionProvider = Provider.of<PrescriptionProvider>(context);
+    final prescriptionProvider =
+        Provider.of<PrescriptionProvider>(context, listen: false);
 
     Size size = MediaQuery.of(context).size;
     Color myColor = const Color.fromARGB(255, 242, 242, 253);
