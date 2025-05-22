@@ -2,7 +2,6 @@ import 'package:eye_glass/screens/final_summary_screen.dart';
 import 'package:eye_glass/screens/lens_info_screen.dart';
 import 'package:eye_glass/screens/personal_info_screen.dart';
 import 'package:eye_glass/screens/home_screen.dart';
-import 'package:eye_glass/providers/lens_provider.dart';
 import 'package:eye_glass/providers/prescription_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -14,7 +13,6 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => PrescriptionProvider()),
-        ChangeNotifierProvider(create: (_) => LensProvider()),
 
         // Add other providers below as needed
         // ChangeNotifierProvider(create: (_) => AnotherProvider()),
