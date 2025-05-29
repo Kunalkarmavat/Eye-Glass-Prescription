@@ -21,9 +21,10 @@ class LensInput extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 26),
+          padding: const EdgeInsets.only(top: 60),
           child: Text(eye, style: _sectionTitleStyle),
         ),
+        LensInputField(label: label1, controller: controller),
         LensInputField(label: label1, controller: controller),
         // LensInputField(label: label2, controller: controller),
       ],
@@ -32,7 +33,7 @@ class LensInput extends StatelessWidget {
 }
 
 const TextStyle _sectionTitleStyle = TextStyle(
-  fontSize: 14,
+  fontSize: 16,
   fontWeight: FontWeight.w500,
   color: Colors.black,
 );

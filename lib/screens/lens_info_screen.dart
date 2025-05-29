@@ -50,22 +50,18 @@ class _LensInfoScreenState extends State<LensInfoScreen> {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
+
+
+          
           LensInput(
-              eye: "Right",
+              eye: "Sphere",
               controller: _rightSphere,
-              label1: "Sphere",
+              label1: "Right",
               label2: "Add"),
+          LensInput(eye: "right", controller: _leftSphere),
           LensInput(eye: "Left", controller: _leftSphere),
           const SizedBox(height: 24),
-          LensInput(
-              eye: "Right",
-              controller: _rightCylinder,
-              label1: "Cylinder",
-              label2: "Axis"),
-          LensInput(
-            eye: "Left",
-            controller: _leftCylinder,
-          ),
+       
           const SizedBox(height: 12),
           LensSelector(
             label: 'Prisms',

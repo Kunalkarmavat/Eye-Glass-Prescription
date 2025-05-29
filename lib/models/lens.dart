@@ -7,7 +7,11 @@ class Lens {
       this.rightAxis,
       required this.leftSphere,
       required this.leftCylinder,
-      this.leftAxis});
+      
+      this.leftAxis
+      
+      
+      });
 
   final double rightSphere;
   final double rightCylinder;

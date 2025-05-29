@@ -30,6 +30,9 @@ class _HomeScreenState extends State<HomeScreen> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
+
+            
+            
             const DrawerHeader(
               decoration: BoxDecoration(color: Color.fromRGBO(72, 76, 224, 1)),
               child: Text(
@@ -56,107 +59,126 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       appBar: AppBar(
-        title: const Text(
-          '',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-        ),
+
+        title:  const Text(
+            'RECENT PRESCRIPTION',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         backgroundColor: myColor,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Icon(Icons.abc_outlined),
-            Text(
-              'SEE ◉-◉ \nCLAEARLY ',
-              textAlign: TextAlign.left,
-              style: GoogleFonts.inter(
-                fontSize: 54,
-                fontWeight: FontWeight.w900,
-                height: 1.2,
-                color: Colors.black,
+   body: Padding(
+  padding: const EdgeInsets.all(24.0),
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+
+      
+      // 🔍 Search and Filter Row
+      Row(
+        children: [
+
+          
+          Expanded(
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: 'Search prescriptions',
+                prefixIcon: const Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: const BorderSide(color: Colors.grey),
+                ),
+                filled: true,
+                fillColor: Colors.white,
               ),
+              onChanged: (value) {
+                // TODO: Implement search logic
+              },
             ),
-            Text(
-              'SAVE EASILY.',
-              textAlign: TextAlign.left,
-              style: GoogleFonts.inter(
-                fontSize: 54,
-                fontWeight: FontWeight.w900,
-                height: 1.2,
-                color: const Color.fromRGBO(72, 76, 224, 1),
-              ),
+          ),
+          const SizedBox(width: 12),
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: Colors.grey),
             ),
-            const SizedBox(height: 20),
-            Text(
-              'Track and manage optical prescriptions effortlessly. Save checkup details, lens preferences, and revisit schedules—all in one place!',
-              textAlign: TextAlign.left,
-              style: GoogleFonts.heebo(
+            child: IconButton(
+              icon: const Icon(Icons.filter_list),
+              onPressed: () {
+                // TODO: Implement filter logic
+              },
+            ),
+          ),
+        ],
+      ),
+
+      const SizedBox(height: 30),
+
+      // Recent Prescriptions Header
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Text(
+            'RECENT PRESCRIPTION',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        RecentPrescriptionScreen(provider.prescriptions)),
+              );
+            },
+            child: const Text(
+              'See All',
+              style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
-                height: 1.5,
-                color: Colors.black,
+                color: Color.fromRGBO(72, 76, 224, 1),
+                decoration: TextDecoration.underline,
               ),
             ),
-            const SizedBox(height: 30),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  'RECENT PRESCRIPTION',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              RecentPrescriptionScreen(provider.prescriptions)),
-                    );
-                  },
-                  child: const Text(
-                    'See All',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      color: Color.fromRGBO(72, 76, 224, 1),
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 10),
-            Container(
-              height: 180,
-              decoration: const BoxDecoration(
-                color: Colors.white,
+          ),
+        ],
+      ),
+
+      const SizedBox(height: 10),
+
+      // Prescriptions List
+      Container(
+        height: 180,
+        decoration: const BoxDecoration(
+          color: Colors.white,
+        ),
+        child: Center(
+          child: ListView.builder(
+            itemCount: provider.prescriptions.length,
+            itemBuilder: (context, index) => ListTile(
+              key: ValueKey(provider.prescriptions[index].id),
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(provider.prescriptions[index].patientName!),
+                  Text(provider.prescriptions[index].lensType!.name),
+                  Text(provider.prescriptions[index].date!),
+                ],
               ),
-              child: Center(
-                  child: ListView.builder(
-                itemCount: provider.prescriptions.length,
-                itemBuilder: (context, index) => ListTile(
-                  key: ValueKey(provider.prescriptions[index].id),
-                  title: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(provider.prescriptions[index].patientName!),
-                        Text(provider.prescriptions[index].lensType!.name),
-                        Text(provider.prescriptions[index].date!)
-                      ]),
-                ),
-              )
-                  // Text('No recent views yet'),
-                  ),
             ),
-          ],
+          ),
         ),
       ),
+    ],
+  ),
+),
+
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 24),
         child: SizedBox(
