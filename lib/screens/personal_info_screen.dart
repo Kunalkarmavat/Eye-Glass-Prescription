@@ -46,7 +46,6 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // final provider = Provider.of<PrescriptionProvider>(context, listen: false);
     Color myColor = const Color.fromARGB(255, 242, 242, 253);
     Size size = MediaQuery.of(context).size;
 
@@ -139,16 +138,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                 revisitDate: _revisitDateController.text,
                 lensType: _selectedLensType!,
                 lens: null);
-            // provider.prescription = Prescription(
-            //     patientName: _patientNameController.text,
-            //     doctorName: _doctorNameController.text,
-            //     date: _dateController.text,
-            //     expiryDate: _expiryDateController.text,
-            //     revisitDate: _revisitDateController.text,
-            //     lensType: _selectedLensType!,
-            //     lens: null);
-            // Navigator.pushNamed(context, '/form2');
-            // print(_patientNameController.text);
+
             Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => LensInfoScreen(
                 prescription: prescription,

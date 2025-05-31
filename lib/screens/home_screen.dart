@@ -1,6 +1,7 @@
 import 'package:eye_glass/models/prescription.dart';
 import 'package:eye_glass/providers/prescription_provider.dart';
 import 'package:eye_glass/screens/final_summary_screen.dart';
+import 'package:eye_glass/widgets/filters_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -101,7 +102,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: IconButton(
                     icon: const Icon(Icons.filter_list),
                     onPressed: () {
-                      // TODO: Implement filter logic
+                      showModalBottomSheet(
+                          context: context,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.vertical(top: Radius.circular(16)),
+                          ),
+                          builder: (context) => FiltersBottomSheet(
+                                provider: provider,
+                              ));
                     },
                   ),
                 ),
@@ -182,10 +191,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                       onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
                             builder: (ctx) => FinalSummaryScreen(
                                 prescription:
-                                    provider.filteredPrescriptions[index])));
+                                    provider.filteredPrescriptions[index]),
+                          ),
+                        );
                       },
                     ),
                   ),

@@ -4,27 +4,6 @@ import 'package:eye_glass/models/prescription.dart';
 import 'package:eye_glass/services/prescription_service.dart';
 import 'package:flutter/material.dart';
 
-// class PrescriptionProvider extends ChangeNotifier {
-//   final TextEditingController prescriptionNameController =
-//       TextEditingController();
-//   final TextEditingController doctorNameController = TextEditingController();
-//   final TextEditingController prescriptionDateController =
-//       TextEditingController();
-//   final TextEditingController expiryDateController = TextEditingController();
-//   final TextEditingController revisitDateController = TextEditingController();
-
-//   String _storedText = "";
-
-//   String get storedText => _storedText;
-
-//   void getInput() {
-//     _storedText = prescriptionDateController.text;
-//     notifyListeners(); // notify listeners after updating value
-//   }
-
-// final Map<String, dynamic> data = {};
-// }
-
 class PrescriptionProvider extends ChangeNotifier {
   final _prescriptionService = PrescriptionService();
 
@@ -40,8 +19,14 @@ class PrescriptionProvider extends ChangeNotifier {
   );
   List<Prescription> _filteredPrescriptions = [];
 
+  String _searchKeyword = "";
+
+  LensOption? _selectedCategory;
+
   UnmodifiableListView<Prescription> get prescriptions =>
       UnmodifiableListView(_prescriptions);
+
+  LensOption? get selectedCategory => _selectedCategory;
 
   set prescription(Prescription prescription) {
     _prescription = prescription;
@@ -55,7 +40,6 @@ class PrescriptionProvider extends ChangeNotifier {
   }
 
   Future<void> addPrescription(Prescription prescription) async {
-    // _prescription.lens = lensInfo;
     _prescriptions.add(_prescription);
     await _prescriptionService.add(prescription);
     notifyListeners();
@@ -64,12 +48,25 @@ class PrescriptionProvider extends ChangeNotifier {
   List<Prescription> get filteredPrescriptions => _filteredPrescriptions;
 
   void filterData(String keyword) {
-    keyword = keyword.toLowerCase();
+    _searchKeyword = keyword;
 
-    _filteredPrescriptions = _prescriptions
-        .where((item) => item.patientName!.toLowerCase().contains(keyword))
-        .toList();
+    _applyFilters();
+  }
 
+  void filterByCategory(LensOption? category) {
+    _selectedCategory = category;
+    _applyFilters();
+  }
+
+  void _applyFilters() {
+    _filteredPrescriptions = _prescriptions.where((item) {
+      final matchesKeyword = item.patientName!
+          .toLowerCase()
+          .contains(_searchKeyword.toLowerCase());
+      final matchesCategory =
+          _selectedCategory == null || item.lensType == _selectedCategory;
+      return matchesKeyword && matchesCategory;
+    }).toList();
     notifyListeners();
   }
 

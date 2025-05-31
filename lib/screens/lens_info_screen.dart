@@ -2,7 +2,6 @@ import 'package:eye_glass/models/lens.dart';
 import 'package:eye_glass/models/prescription.dart';
 import 'package:eye_glass/providers/prescription_provider.dart';
 import 'package:eye_glass/screens/final_summary_screen.dart';
-import 'package:eye_glass/widgets/lens_input.dart';
 import 'package:eye_glass/widgets/lens_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -54,15 +53,14 @@ class _LensInfoScreenState extends State<LensInfoScreen> {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          InputTable(),
-          LensInput(
-              eye: "Sphere",
-              controller: _rightSphere,
-              // controller: _leftSphere,
-              label1: "Right",
-              label2: "Add"),
-          LensInput(eye: "Axis", controller: _leftSphere),
-          LensInput(eye: "Cylinder", controller: _leftSphere),
+          InputTable(
+            rightSphere: _rightSphere,
+            leftSphere: _leftSphere,
+            rightCylinder: _rightCylinder,
+            leftCylinder: _leftCylinder,
+            rightAxis: _rightAxis,
+            leftAxis: _leftAxis,
+          ),
           const SizedBox(height: 24),
           const SizedBox(height: 12),
           LensSelector(
@@ -131,31 +129,20 @@ class _LensInfoScreenState extends State<LensInfoScreen> {
               pupillaryDistance: _isPd,
               rightSphere: double.tryParse(_rightSphere.text)!,
               rightCylinder: double.tryParse(_rightCylinder.text)!,
-              // rightAxis: double.tryParse(_rightAxis.text)!,
+              rightAxis: double.tryParse(_rightAxis.text)!,
               leftSphere: double.tryParse(_leftSphere.text)!,
               leftCylinder: double.tryParse(_leftCylinder.text)!,
-              // leftAxis: double.tryParse(_leftAxis.text)!),
+              leftAxis: double.tryParse(_leftAxis.text)!,
             );
             widget.prescription.lens = lens;
             prescriptionProvider.addPrescription(widget.prescription);
-            Navigator.of(context).push(MaterialPageRoute(
+            Navigator.of(context).push(
+              MaterialPageRoute(
                 builder: (context) => FinalSummaryScreen(
-                      prescription: widget.prescription,
-                    )));
-            // prescriptionProvider.addPrescription(Lens(
-            //   prism: _isPrism,
-            //   pupillaryDistance: _isPd,
-            //   rightSphere: double.tryParse(_rightSphere.text)!,
-            //   rightCylinder: double.tryParse(_rightCylinder.text)!,
-            //   // rightAxis: double.tryParse(_rightAxis.text)!,
-            //   leftSphere: double.tryParse(_leftSphere.text)!,
-            //   leftCylinder: double.tryParse(_leftCylinder.text)!,
-            //   // leftAxis: double.tryParse(_leftAxis.text)!),
-            // ));
-            // Navigator.pushNamed(
-            //   context,
-            //   '/summary',
-            // );
+                  prescription: widget.prescription,
+                ),
+              ),
+            );
           },
           child: Container(
             width: double.infinity,
@@ -182,7 +169,21 @@ const TextStyle _buttonTextStyle = TextStyle(
 );
 
 class InputTable extends StatelessWidget {
-  const InputTable({Key? key}) : super(key: key);
+  const InputTable(
+      {super.key,
+      required this.rightSphere,
+      required this.leftAxis,
+      required this.leftCylinder,
+      required this.leftSphere,
+      required this.rightAxis,
+      required this.rightCylinder});
+
+  final TextEditingController rightSphere;
+  final TextEditingController leftSphere;
+  final TextEditingController rightCylinder;
+  final TextEditingController leftCylinder;
+  final TextEditingController rightAxis;
+  final TextEditingController leftAxis;
 
   @override
   Widget build(BuildContext context) {
@@ -194,8 +195,8 @@ class InputTable extends StatelessWidget {
       },
       // border: TableBorder.all(color: Colors.grey),
       defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-      children: const [
-        TableRow(
+      children: [
+        const TableRow(
           children: [
             Padding(
               padding: EdgeInsets.all(8.0),
@@ -211,67 +212,79 @@ class InputTable extends StatelessWidget {
         ),
         TableRow(
           children: [
-            Padding(
+            const Padding(
               padding: EdgeInsets.all(8.0),
-              child: Text('Spehere'),
+              child: Text('Sphere'),
             ),
             Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: TextField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     border: OutlineInputBorder(), labelText: '0.00'),
+                controller: rightSphere,
+                keyboardType: TextInputType.number,
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: TextField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     border: OutlineInputBorder(), labelText: '0.00'),
+                controller: leftSphere,
+                keyboardType: TextInputType.number,
               ),
             ),
           ],
         ),
         TableRow(
           children: [
-            Padding(
+            const Padding(
               padding: EdgeInsets.all(8.0),
               child: Text('Cylinder'),
             ),
             Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: TextField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     border: OutlineInputBorder(), labelText: '0.00'),
+                controller: rightCylinder,
+                keyboardType: TextInputType.number,
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: TextField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     border: OutlineInputBorder(), labelText: '0.00'),
+                controller: leftCylinder,
+                keyboardType: TextInputType.number,
               ),
             ),
           ],
         ),
         TableRow(
           children: [
-            Padding(
+            const Padding(
               padding: EdgeInsets.all(8.0),
               child: Text('Axis'),
             ),
             Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: TextField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     border: OutlineInputBorder(), labelText: '0'),
+                controller: rightAxis,
+                keyboardType: TextInputType.number,
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: TextField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     border: OutlineInputBorder(), labelText: '0'),
+                controller: leftAxis,
                 textAlign: TextAlign.center,
+                keyboardType: TextInputType.number,
               ),
             ),
           ],

@@ -4,21 +4,17 @@ class Lens {
       required this.pupillaryDistance,
       required this.rightSphere,
       required this.rightCylinder,
-      this.rightAxis,
+      required this.rightAxis,
       required this.leftSphere,
       required this.leftCylinder,
-      
-      this.leftAxis
-      
-      
-      });
+      required this.leftAxis});
 
   final double rightSphere;
   final double rightCylinder;
-  final double? rightAxis;
+  final double rightAxis;
   final double leftSphere;
   final double leftCylinder;
-  final double? leftAxis;
+  final double leftAxis;
   final String prism;
   final String pupillaryDistance;
 
@@ -39,14 +35,12 @@ class Lens {
       pupillaryDistance: json['pupillaryDistance'] as String,
       rightSphere: (json['rightSphere'] as num).toDouble(),
       rightCylinder: (json['rightCylinder'] as num).toDouble(),
-      rightAxis: json['rightAxis'] != null
-          ? (json['rightAxis'] as num).toDouble()
-          : null,
+      rightAxis:
+          json['rightAxis'] != null ? (json['rightAxis'] as num).toDouble() : 0,
       leftSphere: (json['leftSphere'] as num).toDouble(),
       leftCylinder: (json['leftCylinder'] as num).toDouble(),
-      leftAxis: json['leftAxis'] != null
-          ? (json['leftAxis'] as num).toDouble()
-          : null,
+      leftAxis:
+          json['leftAxis'] != null ? (json['leftAxis'] as num).toDouble() : 0,
     );
   }
 }
