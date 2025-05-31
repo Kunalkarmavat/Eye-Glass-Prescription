@@ -154,22 +154,46 @@ class _HomeScreenState extends State<HomeScreen> {
 
       // Prescriptions List
       Container(
-        height: 180,
+        height: 400,
         decoration: const BoxDecoration(
-          color: Colors.white,
+          color: Color.fromARGB(255, 241, 177, 177),
         ),
         child: Center(
           child: ListView.builder(
             itemCount: provider.prescriptions.length,
             itemBuilder: (context, index) => ListTile(
               key: ValueKey(provider.prescriptions[index].id),
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(provider.prescriptions[index].patientName!),
-                  Text(provider.prescriptions[index].lensType!.name),
-                  Text(provider.prescriptions[index].date!),
-                ],
+              title: GestureDetector(
+                
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                
+                    Container(
+                      height: 80,
+                      width: 80,
+                      decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Colors.grey),
+                            ),
+                    ),
+                
+                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                
+                       Text(provider.prescriptions[index].patientName!),
+                    Text(provider.prescriptions[index].lensType!.name),
+                    ],
+                   ),
+                    Text(provider.prescriptions[index].date!),
+                  ],
+                ),
+                onTap: (){
+                  print(provider.prescriptions[index].date!);
+                  
+                },
               ),
             ),
           ),
@@ -222,13 +246,34 @@ class RecentPrescriptionScreen extends StatelessWidget {
         itemBuilder: (context, index) => Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(prescriptions[index].patientName!),
-            Text(prescriptions[index].lensType!.name),
-            Text(prescriptions[index].date!)
+           GestureDetector(
+            child: Container(
+              // height: 200,
+              // width: double.infinity,
+              color: Colors.amber,
+              child: Column(
+                children: [
+                   Text(prescriptions[index].patientName!),
+              Text(prescriptions[index].lensType!.name),
+              Text(prescriptions[index].date!)
+                ],
+              ),
+            ),
+            onTap: (){
+              Navigator.pushNamed(context, '/detail');
+
+            },
+           )
           ],
         ),
       );
     }
+
+    // else{
+    //   Center(
+    //     Text("No data found");
+    //   )
+    // }
 
     return Scaffold(
       appBar: AppBar(

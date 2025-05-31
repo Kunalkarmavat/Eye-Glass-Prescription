@@ -56,10 +56,11 @@ class _LensInfoScreenState extends State<LensInfoScreen> {
           LensInput(
               eye: "Sphere",
               controller: _rightSphere,
+              controller: _leftSphere,
               label1: "Right",
               label2: "Add"),
-          LensInput(eye: "right", controller: _leftSphere),
-          LensInput(eye: "Left", controller: _leftSphere),
+          LensInput(eye: "Axis", controller: _leftSphere),
+          LensInput(eye: "Cylinder", controller: _leftSphere),
           const SizedBox(height: 24),
        
           const SizedBox(height: 12),
