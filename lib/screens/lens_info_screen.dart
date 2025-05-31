@@ -13,8 +13,8 @@ class LensInfoScreen extends StatefulWidget {
 }
 
 class _LensInfoScreenState extends State<LensInfoScreen> {
-  // final TextEditingController _rightAxis = TextEditingController();
-  // final TextEditingController _leftAxis = TextEditingController();
+  final TextEditingController _rightAxis = TextEditingController();
+  final TextEditingController _leftAxis = TextEditingController();
   final TextEditingController _rightSphere = TextEditingController();
   final TextEditingController _leftSphere = TextEditingController();
   final TextEditingController _rightCylinder = TextEditingController();
@@ -51,12 +51,13 @@ class _LensInfoScreenState extends State<LensInfoScreen> {
         padding: const EdgeInsets.all(16),
         children: [
 
+          InputTable(),
+
 
           
           LensInput(
               eye: "Sphere",
               controller: _rightSphere,
-              controller: _leftSphere,
               label1: "Right",
               label2: "Add"),
           LensInput(eye: "Axis", controller: _leftSphere),
@@ -163,3 +164,107 @@ const TextStyle _buttonTextStyle = TextStyle(
   fontWeight: FontWeight.w500,
   color: Colors.white,
 );
+
+
+
+class InputTable extends StatelessWidget {
+  const InputTable({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Table(
+      columnWidths: const {
+        0: FixedColumnWidth(80),
+        1: FlexColumnWidth(),
+        2: FlexColumnWidth(),
+      },
+      // border: TableBorder.all(color: Colors.grey),
+      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+      children: const [
+
+          TableRow(
+          children: [
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(''),
+            ),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child:Center(child: Text('Right'))
+            ),
+
+              Padding(
+              padding: EdgeInsets.all(8.0),
+              child:Center(child: Text('Left'))
+            ),
+
+            
+          ],
+        ),
+
+
+        TableRow(
+          children: [
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text('Spehere'),
+            ),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: TextField(
+                decoration: InputDecoration(border: OutlineInputBorder(), labelText: '0.00'),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: TextField(
+                decoration: InputDecoration(border: OutlineInputBorder(), labelText: '0.00'),
+              ),
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text('Cylinder'),
+            ),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: TextField(
+                decoration: InputDecoration(border: OutlineInputBorder(), labelText: '0.00'),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: TextField(
+                decoration: InputDecoration(border: OutlineInputBorder(), labelText: '0.00'),
+              ),
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text('Axis'),
+            ),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: TextField(
+                decoration: InputDecoration(border: OutlineInputBorder(), labelText: '0'),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: TextField(
+                decoration: InputDecoration(border: OutlineInputBorder(), labelText: '0'),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}

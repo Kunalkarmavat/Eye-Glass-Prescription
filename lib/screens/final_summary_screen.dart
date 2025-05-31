@@ -10,6 +10,7 @@ class FinalSummaryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final Prescription prescription =
         context.read<PrescriptionProvider>().getPrescription();
+        
 
     return Scaffold(
       appBar: AppBar(
