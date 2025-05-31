@@ -1,12 +1,16 @@
 import 'package:eye_glass/models/lens.dart';
+import 'package:eye_glass/models/prescription.dart';
 import 'package:eye_glass/providers/prescription_provider.dart';
+import 'package:eye_glass/screens/final_summary_screen.dart';
 import 'package:eye_glass/widgets/lens_input.dart';
 import 'package:eye_glass/widgets/lens_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class LensInfoScreen extends StatefulWidget {
-  const LensInfoScreen({super.key});
+  const LensInfoScreen({super.key, required this.prescription});
+
+  final Prescription prescription;
 
   @override
   State<LensInfoScreen> createState() => _LensInfoScreenState();
@@ -50,19 +54,15 @@ class _LensInfoScreenState extends State<LensInfoScreen> {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-
-
-          
           LensInput(
               eye: "Sphere",
               controller: _rightSphere,
-              controller: _leftSphere,
+              // controller: _leftSphere,
               label1: "Right",
               label2: "Add"),
           LensInput(eye: "Axis", controller: _leftSphere),
           LensInput(eye: "Cylinder", controller: _leftSphere),
           const SizedBox(height: 24),
-       
           const SizedBox(height: 12),
           LensSelector(
             label: 'Prisms',
@@ -125,7 +125,7 @@ class _LensInfoScreenState extends State<LensInfoScreen> {
       bottomSheet: BottomAppBar(
         child: GestureDetector(
           onTap: () {
-            prescriptionProvider.addPrescription(Lens(
+            final lens = Lens(
               prism: _isPrism,
               pupillaryDistance: _isPd,
               rightSphere: double.tryParse(_rightSphere.text)!,
@@ -134,11 +134,27 @@ class _LensInfoScreenState extends State<LensInfoScreen> {
               leftSphere: double.tryParse(_leftSphere.text)!,
               leftCylinder: double.tryParse(_leftCylinder.text)!,
               // leftAxis: double.tryParse(_leftAxis.text)!),
-            ));
-            Navigator.pushNamed(
-              context,
-              '/summary',
             );
+            widget.prescription.lens = lens;
+            prescriptionProvider.addPrescription(widget.prescription);
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => FinalSummaryScreen(
+                      prescription: widget.prescription,
+                    )));
+            // prescriptionProvider.addPrescription(Lens(
+            //   prism: _isPrism,
+            //   pupillaryDistance: _isPd,
+            //   rightSphere: double.tryParse(_rightSphere.text)!,
+            //   rightCylinder: double.tryParse(_rightCylinder.text)!,
+            //   // rightAxis: double.tryParse(_rightAxis.text)!,
+            //   leftSphere: double.tryParse(_leftSphere.text)!,
+            //   leftCylinder: double.tryParse(_leftCylinder.text)!,
+            //   // leftAxis: double.tryParse(_leftAxis.text)!),
+            // ));
+            // Navigator.pushNamed(
+            //   context,
+            //   '/summary',
+            // );
           },
           child: Container(
             width: double.infinity,

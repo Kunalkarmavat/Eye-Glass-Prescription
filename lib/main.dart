@@ -1,5 +1,5 @@
-import 'package:eye_glass/screens/final_summary_screen.dart';
-import 'package:eye_glass/screens/lens_info_screen.dart';
+// import 'package:eye_glass/screens/final_summary_screen.dart';
+// import 'package:eye_glass/screens/lens_info_screen.dart';
 import 'package:eye_glass/screens/personal_info_screen.dart';
 import 'package:eye_glass/screens/home_screen.dart';
 import 'package:eye_glass/providers/prescription_provider.dart';
@@ -38,8 +38,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/home': (context) => const HomeScreen(),
         '/form': (context) => const PersonalInfoScreen(),
-        '/form2': (context) => const LensInfoScreen(),
-        '/summary': (context) => const FinalSummaryScreen(),
+        // '/form2': (context) => const LensInfoScreen(),
+        // '/summary': (context) => const FinalSummaryScreen(),
       },
     );
   }

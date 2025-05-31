@@ -1,6 +1,5 @@
 import 'dart:collection';
 
-import 'package:eye_glass/models/lens.dart';
 import 'package:eye_glass/models/prescription.dart';
 import 'package:eye_glass/services/prescription_service.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +38,7 @@ class PrescriptionProvider extends ChangeNotifier {
     lensType: null,
     lens: null,
   );
+  List<Prescription> _filteredPrescriptions = [];
 
   UnmodifiableListView<Prescription> get prescriptions =>
       UnmodifiableListView(_prescriptions);
@@ -50,14 +50,26 @@ class PrescriptionProvider extends ChangeNotifier {
   Future<void> getAllPrescriptions() async {
     final response = await _prescriptionService.getAll();
     _prescriptions = response;
-    print(response);
+    _filteredPrescriptions = List.from(_prescriptions);
     notifyListeners();
   }
 
-  Future<void> addPrescription(Lens lensInfo) async {
-    _prescription.lens = lensInfo;
+  Future<void> addPrescription(Prescription prescription) async {
+    // _prescription.lens = lensInfo;
     _prescriptions.add(_prescription);
-    await _prescriptionService.add(_prescription);
+    await _prescriptionService.add(prescription);
+    notifyListeners();
+  }
+
+  List<Prescription> get filteredPrescriptions => _filteredPrescriptions;
+
+  void filterData(String keyword) {
+    keyword = keyword.toLowerCase();
+
+    _filteredPrescriptions = _prescriptions
+        .where((item) => item.patientName!.toLowerCase().contains(keyword))
+        .toList();
+
     notifyListeners();
   }
 

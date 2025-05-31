@@ -1,7 +1,8 @@
 import 'package:eye_glass/models/prescription.dart';
-import 'package:eye_glass/providers/prescription_provider.dart';
+// import 'package:eye_glass/providers/prescription_provider.dart';
+// import 'package:provider/provider.dart';
+import 'package:eye_glass/screens/lens_info_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class PersonalInfoScreen extends StatefulWidget {
   const PersonalInfoScreen({super.key});
@@ -45,7 +46,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<PrescriptionProvider>(context, listen: false);
+    // final provider = Provider.of<PrescriptionProvider>(context, listen: false);
     Color myColor = const Color.fromARGB(255, 242, 242, 253);
     Size size = MediaQuery.of(context).size;
 
@@ -130,7 +131,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
       bottomSheet: BottomAppBar(
         child: GestureDetector(
           onTap: () {
-            provider.prescription = Prescription(
+            Prescription prescription = Prescription(
                 patientName: _patientNameController.text,
                 doctorName: _doctorNameController.text,
                 date: _dateController.text,
@@ -138,8 +139,21 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                 revisitDate: _revisitDateController.text,
                 lensType: _selectedLensType!,
                 lens: null);
-            Navigator.pushNamed(context, '/form2');
-            print(_patientNameController.text);
+            // provider.prescription = Prescription(
+            //     patientName: _patientNameController.text,
+            //     doctorName: _doctorNameController.text,
+            //     date: _dateController.text,
+            //     expiryDate: _expiryDateController.text,
+            //     revisitDate: _revisitDateController.text,
+            //     lensType: _selectedLensType!,
+            //     lens: null);
+            // Navigator.pushNamed(context, '/form2');
+            // print(_patientNameController.text);
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => LensInfoScreen(
+                prescription: prescription,
+              ),
+            ));
           },
           child: Container(
             width: size.width,

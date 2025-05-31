@@ -4,12 +4,13 @@ import 'package:eye_glass/models/prescription.dart';
 import 'package:eye_glass/providers/prescription_provider.dart';
 
 class FinalSummaryScreen extends StatelessWidget {
-  const FinalSummaryScreen({super.key});
+  const FinalSummaryScreen({super.key, required this.prescription});
 
+  final Prescription prescription;
   @override
   Widget build(BuildContext context) {
-    final Prescription prescription =
-        context.read<PrescriptionProvider>().getPrescription();
+    // final Prescription prescription =
+    //     context.read<PrescriptionProvider>().getPrescription();
 
     return Scaffold(
       appBar: AppBar(
