@@ -22,9 +22,9 @@ class LensInputField extends StatelessWidget {
           color: Colors.amber,
           child: SizedBox(
             width: 140,
-            
-            height: 50,
+
             child: TextField(
+              
               keyboardType: TextInputType.number,
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               controller: controller,
